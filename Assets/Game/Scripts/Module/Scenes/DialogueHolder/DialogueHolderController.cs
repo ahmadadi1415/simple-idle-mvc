@@ -15,27 +15,31 @@ namespace SimpleIdle.Module.Dialogue
         public override IEnumerator Initialize()
         {
             yield return base.Initialize();
-            dialogueDatas = new()
-            {
-                new("Hank", "Chat"),
-                new("Hank", "Chat"),
-                new("Hank", "Chat"),
-                new("Hank", "Chat"),
-                new("Hank", "Chat"),
-                new("Hank", "Chat"),
-                new("Hank", "Chat"),
-                new("Hank", "Chat"),
-                new("Hank", "Chat"),
-                new("Hank", "Chat"),
-                new("Hank", "Chat")
-            };
-
+            LoadData();
         }
 
         public override void SetView(DialogueHolderView view)
         {
             base.SetView(view);
             view.SetCallbacks(OnClickNext, OnClickReturn);
+        }
+
+        private void LoadData()
+        {
+            dialogueDatas = new()
+            {
+                new("Hank", "Hello!"),
+                new("Emma", "Hi"),
+                new("You", "How are you? I'am the MC"),
+                new("Hank", "Lorem ipsum dolor sit atmet."),
+                new("Emma", "Lorem ipsum dolor sit atmet."),
+                new("Alex", "Lorem ipsum dolor sit atmet."),
+                new("Emma", "Lorem ipsum dolor sit atmet."),
+                new("You", "Lorem ipsum dolor sit atmet."),
+                new("Hank", "Lorem ipsum dolor sit atmet."),
+                new("Alex", "Lorem ipsum dolor sit atmet."),
+                new("Hank", "Lorem ipsum dolor sit atmet.")
+            };
         }
 
         private void OnClickNext()
@@ -45,7 +49,6 @@ namespace SimpleIdle.Module.Dialogue
             {
                 Debug.Log(dialogueDatas[currentNum]);
                 CreateDialogueItemView(dialogueDatas[currentNum]);
-                Debug.Log("Test");
                 currentNum++;
             }
         }
@@ -53,13 +56,13 @@ namespace SimpleIdle.Module.Dialogue
         private void OnClickReturn()
         {
             // Return to MainMenu
+            SceneLoader.Instance.LoadScene("MainMenu");
         }
 
         private void CreateDialogueItemView(DialogueData dialogueData)
         {
             GameObject dialogueItemObject = _view.CreateItemObject("DialogueItem");
             DialogueItemModel dialogueItemModel = new();
-            Debug.Log(dialogueItemModel.IsUnityNull());
             dialogueItemModel.SetDialogueData(dialogueData);
             DialogueItemView dialogueItemView = dialogueItemObject.GetComponent<DialogueItemView>();
             _model.AddDialogueItem(dialogueItemModel);

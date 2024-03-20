@@ -37,7 +37,7 @@ namespace SimpleIdle.MainMenu
         protected override IEnumerator InitSceneObject()
         {
             yield return null;
-            _view.SetCallbacks(OnClickPlayButton);
+            _view.SetCallbacks(OnClickPlayButton, OnClickDialogueButton);
 
         }
 
@@ -50,6 +50,11 @@ namespace SimpleIdle.MainMenu
         private void OnClickPlayButton()
         {
             SceneLoader.Instance.LoadScene("Gameplay");
+        }
+
+        private void OnClickDialogueButton()
+        {
+            SceneLoader.Instance.LoadScene("Dialogue");
         }
     }
 }
